@@ -98,24 +98,24 @@ Rating.belongsTo(User, { foreignKey: 'userId' });
 Movie.hasMany(Rating, { foreignKey: 'movieId' });
 Rating.belongsTo(Movie, { foreignKey: 'movieId' });
 
-await db.sync({ force: true })
+// await db.sync({ force: true })
 
-const testUser = await User.create({ email: 'test@email.com', password: 'test' });
-const anotherUser = await User.create ({ email: 'test2@email.com', password: 'test2' });
-const testMovie = await Movie.create ({ title: 'Interstellar' });
-// const testRating = await Rating.create ({ score: 10 });
+// const testUser = await User.create({ email: 'test@email.com', password: 'test' });
+// const anotherUser = await User.create ({ email: 'test2@email.com', password: 'test2' });
+// const testMovie = await Movie.create ({ title: 'Interstellar' });
+// // const testRating = await Rating.create ({ score: 10 });
 
-await testUser.createRating({
-  score: 5,
-  movieId: testMovie.movieId,
-})
+// await testUser.createRating({
+//   score: 5,
+//   movieId: testMovie.movieId,
+// })
 
-await anotherUser.createRating({
-  score: 4,
-  movieId: testMovie.movieId,
-})
+// await anotherUser.createRating({
+//   score: 4,
+//   movieId: testMovie.movieId,
+// })
 
-console.log(testUser);
-console.log(testMovie);
-// console.log(testRating);
-console.log(await testMovie.getRatings());
+// console.log(testUser);
+// console.log(testMovie);
+// // console.log(testRating);
+// console.log(await testMovie.getRatings());
