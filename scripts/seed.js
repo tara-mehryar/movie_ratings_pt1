@@ -17,11 +17,20 @@ const moviesInDb = await Promise.all (
             posterPath,
             releaseData,
         });
+
         return newMovie;
 })
 )
 
+const usersToCreate = []
+for (let i = 0; i < 10; i++){
+    usersToCreate.push(await User.create({ email: `test${i}@mail.com`, password: 'test' }))
+}
+
+const usersInDb = await Promise.all(usersToCreate)
+
 console.log(moviesInDb);
+console.log(usersInDb);
 
 await db.close()
 console.log('Finished seeding database.');
