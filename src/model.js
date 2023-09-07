@@ -16,6 +16,35 @@ export class Movie extends Model {
   }
 }
 
+export class Rating extends Model {
+  [util.inspect.custom]() {
+    return this.toJSON();
+  }
+}
+
+User.init(
+  {
+    userId: {
+      type: DataTypes.INTEGER,
+      autoIncrement: true,
+      primaryKey: true,
+    },
+    email: {
+      type: DataTypes.STRING,
+      unique: true,
+      allowNull: false,
+    },
+    password: {
+      type: DataTypes.STRING,
+      allowNull: false,
+    },
+  },
+  {
+    modelName: 'user',
+    sequelize: db,
+  },
+);
+
 Movie.init(
   {
     movieId: {
@@ -43,26 +72,23 @@ Movie.init(
   },
 );
 
-User.init(
+Rating.init(
   {
-    userId: {
+    ratingId: {
       type: DataTypes.INTEGER,
       autoIncrement: true,
       primaryKey: true,
     },
-    email: {
-      type: DataTypes.STRING,
-      unique: true,
-      allowNull: false,
-    },
-    password: {
-      type: DataTypes.STRING,
+    score: {
+      type: DataTypes.INTEGER,
       allowNull: false,
     },
   },
   {
-    modelName: 'user',
+    modelName: 'rating',
     sequelize: db,
+    timestamps: true,
+    updatedAt: false,
   },
 );
 
@@ -70,6 +96,8 @@ await db.sync({ force: true })
 
 const testUser = await User.create({ email: 'test@email.com', password: 'test' });
 const testMovie = await Movie.create ({ title: 'Interstellar' });
+const testRating = await Rating.create ({ score: 10 });
 
 console.log(testUser);
 console.log(testMovie);
+console.log(testRating);
