@@ -6,4 +6,17 @@ await db.sync({ force: true })
 
 console.log('Seeding database...')
 
+const moviesInDb = movieData.map( async(movie) => {
+    const releaseData = new Date(Date.parse(movie.releaseDate));
+    const { title, overview, posterPath } = movie;
 
+    const newMovie = await Movie.create({
+        title,
+        overview,
+        posterPath,
+        releaseData,
+    });
+    return newMovie;
+});
+
+console.log(moviesInDb);
